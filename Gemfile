@@ -26,6 +26,7 @@ gem 'puma', '~> 3.7'
 gem 'rack-cors'
 
 gem 'graphql'
+gem 'graphiql-rails'
 gem 'react-rails'
 gem 'sass-rails'
 gem 'uglifier'
@@ -42,7 +43,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rubocop', require: false
-  gem 'graphiql-rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
