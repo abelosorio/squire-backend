@@ -1,10 +1,10 @@
 CreateWorkEntryMutation = GraphQL::Relay::Mutation.define do
   name 'CreateWorkEntry'
 
-  input_field :entry_date, !types.String
+  input_field :entry_date, !types.Date
   input_field :client, !types.String
   input_field :project, !types.String
-  input_field :worked_hours, !types.Int
+  input_field :worked_hours, !type.Number
 
   return_field :work_entry, Types::WorkEntryType
 
@@ -18,15 +18,4 @@ CreateWorkEntryMutation = GraphQL::Relay::Mutation.define do
       )
     }
   }
-end
-
-MutationType = GraphQL::ObjectType.define do
-  name 'Mutation'
-
-  field :create_work_entry, field: CreateWorkEntryMutation.field
-end
-
-SquireBackendSchema = GraphQL::Schema.define do
-  query(Types::QueryType)
-  mutation(MutationType)
 end
