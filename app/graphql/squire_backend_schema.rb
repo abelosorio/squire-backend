@@ -6,17 +6,15 @@ CreateWorkEntryMutation = GraphQL::Relay::Mutation.define do
   input_field :project, !types.String
   input_field :worked_hours, !types.Int
 
-  return_field :work_entry, Types::WorkEntryType
+  return_type Types::WorkEntryType
 
-  resolve ->(object, inputs, ctx) {
-    response = {
-      work_entry: WorkEntry.create!(
-        entry_date: inputs[:entry_date],
-        client: inputs[:client],
-        project: inputs[:project],
-        worked_hours: inputs[:worked_hours]
-      )
-    }
+  resolve ->(object, input, ctx) {
+    WorkEntry.create!(
+      client: input[:client],
+      entry_date: input[:entry_date],
+      project: input[:project],
+      worked_hours: input[:worked_hours]
+    )
   }
 end
 
