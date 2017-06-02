@@ -3,7 +3,7 @@ Types::MutationType = GraphQL::ObjectType.define do
 
   field :create_work_entry, Types::WorkEntryType do
     name 'CreateWorkEntry'
-    argument :work_entry, WorkEntryInputType
+    argument :work_entry, !WorkEntryInputType
     resolve ->(object, input, ctx) {
       WorkEntry.create! input[:work_entry].to_h
     }
