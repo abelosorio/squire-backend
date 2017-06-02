@@ -8,6 +8,14 @@ Types::MutationType = GraphQL::ObjectType.define do
       WorkEntry.create! input[:work_entry].to_h
     }
   end
+
+  field :delete_work_entry, types.Boolean do
+    name 'DeleteWorkEntry'
+    argument :id, !types.Int
+    resolve ->(object, input, ctx) {
+      not WorkEntry.delete(input[:id]).zero?
+    }
+  end
 end
 
 WorkEntryInputType = GraphQL::InputObjectType.define do
