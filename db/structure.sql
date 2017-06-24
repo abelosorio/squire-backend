@@ -38,6 +38,37 @@ CREATE TABLE ar_internal_metadata (
 
 
 --
+-- Name: clients; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE clients (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: clients_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE clients_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clients_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE clients_id_seq OWNED BY clients.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -84,6 +115,13 @@ ALTER SEQUENCE work_entries_id_seq OWNED BY work_entries.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY clients ALTER COLUMN id SET DEFAULT nextval('clients_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY work_entries ALTER COLUMN id SET DEFAULT nextval('work_entries_id_seq'::regclass);
 
 
@@ -93,6 +131,14 @@ ALTER TABLE ONLY work_entries ALTER COLUMN id SET DEFAULT nextval('work_entries_
 
 ALTER TABLE ONLY ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: clients_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY clients
+    ADD CONSTRAINT clients_pkey PRIMARY KEY (id);
 
 
 --
@@ -112,12 +158,20 @@ ALTER TABLE ONLY work_entries
 
 
 --
+-- Name: index_clients_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_clients_on_name ON clients USING btree (name);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user",public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20170517145011');
+('20170517145011'),
+('20170623145831');
 
 
