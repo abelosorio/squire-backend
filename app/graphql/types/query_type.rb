@@ -17,4 +17,21 @@ Types::QueryType = GraphQL::ObjectType.define do
       WorkEntry.all
     }
   end
+
+  field :client do
+    description 'Find a Client by ID'
+    type Types::ClientType
+    argument :id, !types.ID
+    resolve ->(obj, args, ctx) {
+      Client.find args['id']
+    }
+  end
+
+  field :clients do
+    description 'Find all the Clients'
+    type Types::ClientType.to_list_type
+    resolve ->(obj, args, ctx) {
+      Client.all
+    }
+  end
 end
