@@ -56,7 +56,7 @@ WorkEntryInputType = GraphQL::InputObjectType.define do
   name 'WorkEntryInputType'
 
   argument :entry_date, !types.String
-  argument :client, !types.String
+  argument :client_id, !types.Int
   argument :project, !types.String
   argument :worked_hours, !types.Int
 end

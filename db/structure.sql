@@ -84,11 +84,11 @@ CREATE TABLE schema_migrations (
 CREATE TABLE work_entries (
     id bigint NOT NULL,
     entry_date date,
-    client character varying,
     project character varying,
     worked_hours integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    client_id bigint
 );
 
 
@@ -165,6 +165,21 @@ CREATE UNIQUE INDEX index_clients_on_name ON clients USING btree (name);
 
 
 --
+-- Name: index_work_entries_on_client_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_work_entries_on_client_id ON work_entries USING btree (client_id);
+
+
+--
+-- Name: fk_rails_e3d83c7593; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY work_entries
+    ADD CONSTRAINT fk_rails_e3d83c7593 FOREIGN KEY (client_id) REFERENCES clients(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -172,6 +187,7 @@ SET search_path TO "$user",public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20170517145011'),
-('20170623145831');
+('20170623145831'),
+('20170624232646');
 
 
